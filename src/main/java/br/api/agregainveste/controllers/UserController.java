@@ -1,6 +1,8 @@
 package br.api.agregainveste.controllers;
 
 
+import java.net.URI;
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -24,8 +26,8 @@ public class UserController{
 
   @PostMapping("/create")
   public ResponseEntity<UserEntity> createUser(@RequestBody CreateUserDto createUserDto){
-    userService.createUser(createUserDto);
-    return null;
+    var userId = userService.createUser(createUserDto);
+    return ResponseEntity.created(URI.create("/user/create" + userId.toString())).build();
   }
 
   @GetMapping("/user{userId}")

@@ -19,7 +19,7 @@ public class UserService{
         this.userRepository = userRepository;
     }
 
-    public void createUser(CreateUserDto createUserDto){
+    public UUID createUser(CreateUserDto createUserDto){
         // conveter DTO para ENTITY
         var entity = new UserEntity(
                 UUID.randomUUID(),
@@ -30,6 +30,7 @@ public class UserService{
                 null
                 );
 
-        userRepository.save(entity);
+        var  userSaved = userRepository.save(entity);
+        return userSaved.getUserId();
     }
 }
